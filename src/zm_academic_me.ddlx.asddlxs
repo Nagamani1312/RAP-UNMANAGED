@@ -1,0 +1,80 @@
+@Metadata.layer: #CORE
+
+@UI: { 
+    headerInfo: {  typeName: 'Academic Result Detail', 
+                   typeNamePlural: 'Academic Result Details',
+                   
+                   title: {  type: #STANDARD, label: 'Academic Result Details', value: 'Semester' },
+                   description:{ type: #STANDARD , label: 'Academic Result Details'}
+                   },
+                   presentationVariant: [{ sortOrder: [{ by: 'Semester', direction: #ASC } ] }]  
+                   
+}
+@Search.searchable: true
+annotate view zcacademic_um 
+    with 
+{
+ @UI.facet: [{id: 'Academic',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Academic Result Details',
+                 position: 10
+                 }]
+    @UI:{ lineItem: [{position:10,  label:'Course' } ],
+            identification: [ { position:10, label:'Course' } ] 
+            }
+   // @UI.hidden: true        
+   Id;
+   @UI:{ lineItem: [{position:20,  label:'Course' } ],
+            identification: [ { position:20, label:'Course' } ] 
+            }
+    @Search.defaultSearchElement: true
+     @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_COURSE_RAP', element:'Value' },
+     distinctValues: true,
+     additionalBinding: [{ localElement: 'Course_desc',
+                            element: 'Description',
+                            usage: #FILTER_AND_RESULT }] }]
+      @EndUserText.label: 'Course'
+   Course;
+   @UI:{ lineItem: [{position:30,  label:' ' } ],
+            identification: [ { position:30, label:' ' } ] 
+            }
+    
+    @Search.defaultSearchElement: true
+   Course_desc;
+   @UI:{ lineItem: [{position:40,  label:'Semester' } ],
+   
+            identification: [ { position:40, label:'Semester' } ] 
+            }
+    @Search.defaultSearchElement: true
+     @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_SEM_RAP', element:'Value' },
+     distinctValues: true,
+     additionalBinding: [{ localElement: 'Semester_desc',
+                            element: 'Description',
+                            usage: #FILTER_AND_RESULT }] }]
+    @EndUserText.label: 'Semester'
+   Semester;
+    @UI:{ lineItem: [{position:50,  label:'' } ],
+            identification: [ { position:50, label:'' } ] 
+            }
+    @Search.defaultSearchElement: true
+   Semester_desc;
+   
+  
+   @UI:{ lineItem: [{position:60,  label:'Sem Result' } ],
+            identification: [ { position:60, label:'Semresult' } ] 
+            }
+    @Search.defaultSearchElement: true
+     @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_SEMRES_RAP', element:'Value' },
+     distinctValues: true,
+     additionalBinding: [{ localElement: 'Semester_desc',
+                            element: 'Description',
+                            usage: #FILTER_AND_RESULT }] }]
+     @EndUserText.label: 'Semresult'
+   Semresult;
+    @UI:{ lineItem: [{position:70,  label:'' } ],
+            identification: [ { position:70, label:'' } ] 
+            }
+    @Search.defaultSearchElement: true
+   Semres_desc;
+}

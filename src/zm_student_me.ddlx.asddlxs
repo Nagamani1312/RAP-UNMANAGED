@@ -1,0 +1,148 @@
+@Metadata.layer: #CORE
+@UI: { 
+        headerInfo: { typeName: 'Student',
+                       typeNamePlural: 'Students',
+                       title: { type:#STANDARD, label: 'Details of the Student', value:'StudentId' } }
+
+}
+@Search.searchable: true
+annotate view zcstudent_um
+    with 
+{
+    @UI.facet: [{
+                 purpose: #HEADER,
+                 type: #DATAPOINT_REFERENCE,
+                 label: 'Status',
+                 targetQualifier: 'Data',
+                 position: 20
+                 },
+                 {
+                 purpose: #HEADER,
+                 type: #DATAPOINT_REFERENCE,
+                 label: 'Firstname',
+                 targetQualifier: 'Datas',
+                 position: 10
+                 },
+                 
+         
+                 {id: 'Stud',
+                 purpose: #STANDARD,
+                  label: 'Student',
+                 type: #COLLECTION,
+                 position: 10
+                 },
+                 {parentId: 'Stud',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Info',
+                 position: 10
+                 },
+                 {parentId: 'Stud',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 label: 'Personal Info',
+                 targetQualifier: 'Personal_Info',
+                 position: 20
+                 },
+                  {parentId: 'Stud',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'Dates',
+                 label: 'Dates',
+                 position: 30
+                 },
+                 
+                 {id: 'Academic',
+                 purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Academic Result',
+                 position: 20,
+                 targetElement: '_results'
+                 }
+                 ]
+    @UI:{ lineItem: [{position:10, label:'ID' },{ type: #FOR_ACTION, dataAction: 'UpdateStatus', label: 'Action'}
+   
+    ],
+            identification: [ { position:10, label:'ID' } ]  
+            }
+     
+    //@UI.hidden: true
+ 
+   Id;
+   
+   @UI:{ lineItem: [{position:15, label:'Student ID' } ],
+            identification: [ { position:20, label:'Student ID' } ]  
+            }
+   StudentId;
+   @UI:{ dataPoint:{ qualifier: 'Datas', title: 'FirstName' } }
+   @UI:{ lineItem: [{position:20, label:'Firstname' } ],
+   fieldGroup: [ { position:10, qualifier: 'Personal_Info', label:'FirstName' } ],
+            selectionField: [{ position:20  }] 
+            }
+   Firstname;
+   @UI:{ lineItem: [{position:30, label:'Lastname' } ],
+   fieldGroup: [ { position:20, qualifier: 'Personal_Info', label:'Lastname' } ],
+            selectionField: [{ position:30  }] 
+            }
+            @Search.defaultSearchElement: true
+   Lastname;
+   @UI:{ lineItem: [{position:40, label:'Age' } ],
+   fieldGroup: [ { position:30, qualifier: 'Personal_Info', label:'Age' } ],
+            selectionField: [{ position:40  }]  
+            }
+   @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_STUDENT_RAP', element: 'Age' },
+     distinctValues: true
+      }]
+   Age;
+   @UI:{ lineItem: [{position:50, label:'Course' } ],
+            fieldGroup: [ { position:40, qualifier: 'Personal_Info', label:'Course' } ],
+            selectionField: [{ position:50  }]  
+            }
+   @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_COURSE_RAP', element: 'Value' },
+     distinctValues: true,label: 'Select Course'
+      }]
+   
+   Course;
+   @UI:{ lineItem: [{position:60, label:'Course duration' } ],
+   fieldGroup: [ { position:50, qualifier: 'Personal_Info', label:'Courseduration' } ],
+            
+            selectionField: [{ position:60  }] 
+            }
+   Courseduration;
+   
+   @UI:{ dataPoint:{ qualifier: 'Data', title: 'Status' } }
+   @UI:{ lineItem: [{position:70, label:'Got Admission' , importance: #HIGH  },
+   
+   
+   {type: #FOR_ACTION, dataAction: 'setAdmitted', label: 'Set Admitted' } 
+   
+   ],
+   fieldGroup: [ { position:60, qualifier: 'Personal_Info', label:'Status' } ],
+            identification: [ { position:70, label:'Got Admission' },
+            {type: #FOR_ACTION, dataAction: 'setAdmitted', label: 'Set Admitted' } 
+             ]
+            
+        }
+   Status;  
+   
+   @UI:{ lineItem: [{position:80, label:'gender ' } ],
+            fieldGroup: [ { position:80, qualifier: 'Personal_Info',label:'gender' } ]
+              
+            }
+   @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_GENDER_RAP', element: 'Description' },
+     distinctValues: true,
+     additionalBinding: [{ localElement: 'genderDes',
+                            element: 'Description',
+                            usage: #FILTER_AND_RESULT }] }]      
+   Gender;
+   @UI:{ lineItem: [{position:90, label:'Genderdesc ' } ],
+            fieldGroup : [ { position:90, qualifier: 'Personal_Info', label:'Genderdesc ' } ]
+              
+            }
+   genderdesc;
+   @UI:{ lineItem: [{position:95, label:'Dob' } ],
+            fieldGroup: [ { position:10, qualifier: 'Dates', label:'Dob' } ],
+            selectionField: [{ position:90  }]  
+            } 
+   Dob;
+}

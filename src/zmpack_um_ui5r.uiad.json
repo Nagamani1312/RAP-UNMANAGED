@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "Student App",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD"
+  },
+  "ui5AppDetails": {
+    "appId": "rap"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_888FB1A0E5B26BF067ACAC1EDB5D94654B383281_TM",
+    "semanticObject": "zmpack_um",
+    "action": "display",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_888FB1A0E5B26BF067ACAC1EDB5D94654B383281_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "Student App"
+      }
+    }
+  ]
+}

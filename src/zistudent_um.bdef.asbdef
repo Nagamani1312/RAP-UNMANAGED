@@ -1,0 +1,87 @@
+unmanaged implementation in class zbp_istudent_um unique;
+strict ( 2 );
+
+with draft;
+define behavior for zistudent_um alias Student
+draft table zmstudents_d_um
+//late numbering
+early numbering
+lock master
+total etag Locallastchangedat
+authorization master ( instance )
+etag master Lastchangedat
+{
+  create;
+  update ( features : instance);
+  delete (features : instance);
+
+  association _results { create; }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume   ;
+
+
+  field ( mandatory ) Age,Firstname;
+
+  field ( readonly ) Id,StudentId, genderDes;
+
+  //field ( readonly : update ) Id,StudentId, genderDes;
+
+action( features : instance ) setAdmitted result [1] $self;
+
+action UpdateStatus parameter ZI_STUDENT_AE result [1] $self;
+
+validation validate_fields on save { create; update;}
+
+determination updateCourse on save { field Course; }
+
+determination updateCourseDes on modify { field Course; }
+side effects { field Course affects field Courseduration; }
+
+draft determine action Prepare{
+ validation validate_fields;
+ determination updateCourse;
+ }
+
+  mapping for zmstudent_um control zmstudent_cs
+  {
+  Id = id;
+  StudentId = studentid;
+  Firstname = firstname;
+  Lastname = lastname;
+  Dob = dob;
+  Age = age;
+  Gender = gender;
+  Course = course;
+  Courseduration = courseduration;
+  Status = status;
+  Lastchangedat = lastchangedat;
+  Locallastchangedat = locallastchangedat;
+  }
+
+}
+
+define behavior for ziacademic_um alias Results
+draft table ziacademics_d_um
+//late numbering
+early numbering
+lock dependent by _student
+authorization dependent by _student
+etag dependent by _student
+{
+  update;
+  delete;
+  //field ( readonly : update ) Course,Semester;
+  field ( readonly ) Id, Course_desc, Semester_desc, Semres_desc;
+  association _student { with draft; }
+
+  mapping for zmacademic_um control zmacademic_cs
+  {
+  Id = id;
+  Course = course;
+  Semester = semester;
+  Semresult = semresult;
+  }
+}

@@ -1,0 +1,11 @@
+@Metadata.layer: #CORE
+annotate entity ZI_STUDENT_AE
+    with 
+{
+@EndUserText.label: 'SET STUDENT STATUS'
+    Status;
+    
+@EndUserText.label: 'SET GENDER'
+    gender;
+    
+}
